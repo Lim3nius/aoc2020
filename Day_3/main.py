@@ -6,7 +6,9 @@ INPUT = 'input'
 
 
 def main():
-    area_map = [line.strip() for line in open(INPUT, 'r')]
+    with open(INPUT, 'r') as fd:
+        area_map = [line.strip() for line in fd]
+
     slopes = [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]]
     res = []
     # part2

@@ -13,8 +13,10 @@ def findNumbersSummingTo(dct: Dict[int, bool], target: int) -> (int, int):
             return (l1, l2)
     return (0, 0)
 
+
 def main():
-    lines = open(FILE, 'r').readlines()
+    with open(FILE, 'r') as fd:
+        lines = fd.readlines()
     dct = {int(x): True for x in lines}
 
     # Part 1
