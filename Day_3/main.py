@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import math
+from itertools import count
 
 INPUT = 'input'
 
@@ -14,22 +15,17 @@ def main():
     # part2
     for s in slopes:
         # part 1
-        pos = [0, 0]
         tree_hits = 0
-        while True:
-            x = pos[0]
-            if x >= len(area_map[pos[1]]):
-                x = x % len(area_map[pos[1]])
-
-            if area_map[pos[1]][x] == '#':
-                tree_hits += 1
-
-            pos[0] += s[0]
-            pos[1] += s[1]
-
-            if pos[1] >= len(area_map):
+        for (x, y) in zip(count(0, s[0]), count(0, s[1])):
+            if y >= len(area_map):
                 res.append(tree_hits)
                 break
+
+            if x >= len(area_map[y]):
+                x = x % len(area_map[y])
+
+            if area_map[y][x] == '#':
+                tree_hits += 1
 
     print('part1 -> ', res[1])
     print('Part2 -> ', math.prod(res))
