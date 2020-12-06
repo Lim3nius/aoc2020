@@ -9,7 +9,7 @@ data = ''.join(data).split('\n\n')
 data = [g.translate(trans).strip().split() for g in data]
 
 
-def person_choices(d, operation):
+def group_choices(d, operation):
     sets = []
     for g in data:
         s = set(g[0])
@@ -20,8 +20,8 @@ def person_choices(d, operation):
     return sets
 
 
-sets = person_choices(data, lambda s1, s2: s1.union(s2))
+sets = group_choices(data, lambda s1, s2: s1.union(s2))
 print('Part1 -> ', sum([len(s) for s in sets]))
 
-sets = person_choices(data, lambda s1, s2: s1.intersection(s2))
+sets = group_choices(data, lambda s1, s2: s1.intersection(s2))
 print('Part 2 -> ', sum([len(s) for s in sets]))
