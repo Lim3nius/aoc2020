@@ -2,6 +2,7 @@
 
 from collections import deque
 from itertools import count
+from typing import List
 
 with open('input', 'r') as fd:
     data = list(map(int, fd.readlines()))
@@ -14,10 +15,12 @@ idx = NUMS
 invalid = 0
 
 
-def combine_from(us, num) -> (int, int):
-    for n0 in us:
+def combine_from(us: List[int], num: int) -> (int, int):
+    for i, n0 in enumerate(us):
         n1 = num - n0
-        if (n1 in us) and (n1 != n0):
+        a = us.copy()
+        a.remove(n0)
+        if (n1 in a):
             return n0, n1
 
     return -1, -1
@@ -41,7 +44,5 @@ for l in count(2, 1):
     for idx in range(len(data) - l):
         s = data[idx:idx+l]
         if sum(s) == invalid:
-            s = sorted(s)
-            print('Part2 -> ', s)
-            print(s[0] + s[-1])
+            print('Part2 -> ', min(s) + max(s))
             raise StopIteration()
