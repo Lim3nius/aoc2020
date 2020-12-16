@@ -2,27 +2,32 @@
 
 import time
 
+first_time = [-1 for _ in range(30_000_000)]
+loaded = 0
+last = 0
+
 with open('input', 'r') as fd:
-    first_time = {n: i for i, n in
-                  enumerate(map(int, fd.readline().split(',')), start=1)}
+    for i, n in enumerate(map(int, fd.readline().split(',')), start=1):
+        first_time[n] = i
+        loaded += 1
+        last = n
 
-visited = {}
-current_num = list(first_time.keys())[-1]
-idx = len(first_time)
-part1 = 0
+visited = [-1 for _ in range(30_000_000)]
 
+idx = loaded
+current_num = last
 t0 = time.time()
 while True:
-    if current_num in first_time:
+    if first_time[current_num] != -1:
         idx0 = first_time[current_num]
         if idx == idx0:
             new_num = 0
         else:
             diff = idx - idx0
             new_num = diff
-            first_time.pop(current_num)
+            first_time[current_num] = -1
             visited[current_num] = idx
-    elif current_num in visited:
+    elif visited[current_num] != -1:
         diff = idx - visited[current_num]
         new_num = diff
         visited[current_num] = idx
@@ -37,7 +42,9 @@ while True:
         print('Part1 in ', time.time() - t0, ' s')
     if idx == 30_000_000:
         print('Part2 in ', time.time() - t0, ' s')
+        part2 = new_num
         break
 
+# part1, part2 = foo()
 print('Part1 -> ', part1)
-print('Part2 -> ', current_num)
+print('Part2 -> ', part2)
